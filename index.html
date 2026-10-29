@@ -434,6 +434,23 @@ input::placeholder{color:var(--muted);opacity:.7}
   /* The decorative layer was obscuring the selected tab label. */
   .mtabs .mtab.active::after{display:none!important;content:none!important}
 }
+
+/* ===== DASHBOARD SHIFT & PAY SUMMARY ===== */
+.dash-shift{margin:15px 0 17px;padding:17px;border:1px solid var(--line2);border-radius:18px;
+  background:linear-gradient(125deg,color-mix(in srgb,var(--card) 93%,var(--acc1) 7%),var(--card));box-shadow:var(--shadow)}
+.dash-shift-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:15px}
+.dash-shift-head p{margin:5px 0 0;color:var(--muted);font-size:11px}
+.dash-shift-badge{font-size:10px;color:var(--acc1);background:var(--soft1);border:1px solid var(--line2);padding:5px 9px;border-radius:99px;white-space:nowrap}
+.dash-shift-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.dash-shift-grid>div{min-width:0;padding:12px;border:1px solid var(--line);background:color-mix(in srgb,var(--card2) 85%,transparent);border-radius:12px}
+.dash-shift-grid span,.dash-shift-pay span{display:block;color:var(--muted);font-size:10px;letter-spacing:.06em}
+.dash-shift-grid strong{display:block;margin-top:6px;font:700 clamp(16px,2vw,22px) 'JetBrains Mono',monospace;color:var(--text);overflow-wrap:anywhere}
+.dash-shift-grid>div:last-child strong{color:var(--acc1)}
+.dash-shift-pay{margin-top:11px;padding:12px 14px;border-radius:12px;background:var(--soft1);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.dash-shift-pay strong{display:block;font:800 23px 'JetBrains Mono',monospace;color:var(--acc1);margin-top:3px}
+.dash-shift-pay small{font-size:10px;color:var(--muted);text-align:right;max-width:46%}
+@media(max-width:620px){.dash-shift{padding:13px}.dash-shift-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dash-shift-grid>div{padding:11px}.dash-shift-pay{align-items:flex-start;flex-direction:column}.dash-shift-pay small{text-align:left;max-width:none}}
+
 </style>
 </head>
 <body>
@@ -496,6 +513,20 @@ input::placeholder{color:var(--muted);opacity:.7}
           <div style="margin-left:auto"><button class="btn btn-ghost" id="btnEditProfile">Edit profil</button></div>
         </div>
       </div>
+
+      <section class="dash-shift" aria-label="Ringkasan jam kerja hari ini">
+        <div class="dash-shift-head">
+          <div><div class="kpi-lbl">Ringkasan Hari Ini</div><p id="dashShiftCaption">Jam masuk, pulang, kerja efektif, dan estimasi lembur</p></div>
+          <span class="dash-shift-badge" id="dashShiftBadge">Belum ada catatan</span>
+        </div>
+        <div class="dash-shift-grid">
+          <div><span>Jam masuk</span><strong id="dashShiftIn">—</strong></div>
+          <div><span>Jam pulang</span><strong id="dashShiftOut">—</strong></div>
+          <div><span>Kerja efektif</span><strong id="dashShiftWork">—</strong></div>
+          <div><span>Lembur tercatat</span><strong id="dashShiftOt">—</strong></div>
+        </div>
+        <div class="dash-shift-pay"><div><span>Estimasi upah hari ini</span><strong id="dashShiftPay">Rp0</strong></div><small id="dashShiftPayNote">Mengikuti akumulasi jam genap dan tarif di pengaturan</small></div>
+      </section>
 
       <div class="kpis">
         <div class="kpi" style="--d:0s"><div class="kpi-lbl">Lembur Hari Ini</div>
@@ -795,6 +826,20 @@ function renderProfile(){
   });
   greetNow();
 }
+function renderShiftSummary(){
+  const t=todayStr(), rs=records.filter(r=>r.date===t).sort((a,b)=>(a.in||'').localeCompare(b.in||''));
+  const totals=rs.reduce((acc,r)=>{const c=calc(r);acc.work+=c.work;acc.ot+=c.ot;acc.payOt+=Math.floor(c.ot/60);return acc;},{work:0,ot:0,payOt:0});
+  const first=rs[0],last=rs[rs.length-1];
+  $('#dashShiftIn').textContent=first?.in||'—';
+  $('#dashShiftOut').textContent=last?.out||'—';
+  $('#dashShiftWork').textContent=rs.length?dur(totals.work):'—';
+  $('#dashShiftOt').textContent=rs.length?dur(totals.ot):'—';
+  $('#dashShiftBadge').textContent=rs.length?rs.length+' catatan hari ini':'Belum ada catatan';
+  $('#dashShiftPay').textContent=rp(totals.payOt*settings.rate);
+  $('#dashShiftPayNote').textContent=rs.length
+    ?'Estimasi per catatan: '+totals.payOt+' jam genap × '+rp(settings.rate)+'; periksa aturan pembulatan.'
+    :'Upah akan dihitung setelah catatan hari ini tersedia.';
+}
 function renderStats(){
   const t=todayStr();
   const todayOt=records.filter(r=>r.date===t).reduce((a,r)=>a+calc(r).ot,0);
@@ -830,7 +875,7 @@ function renderRecap(){
     ?`<tr><td>${label}</td><td>${new Set(rs.map(r=>r.date)).size}</td><td>${dur(work)}</td><td>${dur(ot)}</td><td>${rp(Math.floor(ot/60)*settings.rate)}</td></tr>`
     :'<tr><td colspan="5" class="empty">Tidak ada data pada periode ini.</td></tr>';
 }
-function renderAll(){renderProfile();renderStats();renderRecent();renderHistory();renderRecap();renderCharts()}
+function renderAll(){renderProfile();renderShiftSummary();renderStats();renderRecent();renderHistory();renderRecap();renderCharts()}
 
 /* ========== FORM ========== */
 function prefillNew(keepTimes){
