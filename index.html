@@ -321,6 +321,60 @@ input::placeholder{color:var(--muted);opacity:.7}
   .sec.on>*{animation:none}
 }
 
+
+/* ===== NAV ANIMATION OPTION 4: ELECTRIC POP ===== */
+.mtab{
+  position:relative;isolation:isolate;overflow:hidden;
+  transform:translateZ(0);
+  transition:color .22s ease,background .25s ease,border-color .22s ease,box-shadow .25s ease,transform .18s ease;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+.mtab::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;
+  background:linear-gradient(120deg,var(--acc1),color-mix(in srgb,var(--acc1) 70%,var(--acc2)));
+  opacity:0;transform:scale(.82);
+  transition:opacity .22s ease,transform .28s cubic-bezier(.18,.82,.25,1);
+}
+.mtab.active{
+  color:var(--bg);border-color:transparent;
+  background:transparent;
+  box-shadow:0 5px 18px -9px var(--acc1),0 0 0 1px color-mix(in srgb,var(--acc1) 30%,transparent);
+  font-weight:800;
+  animation:tabElectricPop .32s cubic-bezier(.18,.82,.25,1) both;
+}
+.mtab.active::after{opacity:1;transform:scale(1)}
+.mtab:active{transform:scale(.95)}
+.mtab:focus-visible{outline:2px solid var(--acc1);outline-offset:3px}
+@keyframes tabElectricPop{
+  0%{transform:scale(.94)}
+  62%{transform:scale(1.035)}
+  100%{transform:scale(1)}
+}
+/* Smooth section entrance: existing active-state logic remains the source of truth. */
+.sec.on>*{animation:tabContentRise .34s cubic-bezier(.2,.72,.2,1) both}
+.sec.on>*:nth-child(2){animation-delay:.035s}
+.sec.on>*:nth-child(3){animation-delay:.07s}
+.sec.on>*:nth-child(4){animation-delay:.105s}
+@keyframes tabContentRise{
+  from{opacity:0;transform:translate3d(0,9px,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@media(max-width:960px){
+  .mtabs{gap:7px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .mtabs::-webkit-scrollbar{display:none}
+  .mtab{flex:0 0 auto;min-height:44px;padding:10px 15px;white-space:nowrap}
+}
+@media(max-width:420px){
+  .mtabs{gap:5px}
+  .mtab{padding:10px 12px;font-size:11px;letter-spacing:.035em}
+}
+@media(prefers-reduced-motion:reduce){
+  .mtab,.mtab::after{transition:none!important}
+  .mtab.active{animation:none!important}
+  .sec.on>*{animation:none!important}
+}
+
 </style>
 </head>
 <body>
