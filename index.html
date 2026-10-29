@@ -250,6 +250,62 @@ footer .tag{color:var(--acc1);font-weight:800;letter-spacing:.3em}
  .sec.on{animation:none}
 }
 
+
+/* ===== IPN NAMATOTA · PRODUCT REDESIGN V2 ===== */
+:root{--radius-lg:22px}
+body{letter-spacing:-.012em;background-image:radial-gradient(ellipse at 82% 0%,var(--soft1),transparent 36%),radial-gradient(ellipse at 0% 100%,var(--soft2),transparent 30%)}
+body::before{opacity:.25}
+.app{gap:0}
+.side{width:258px;padding:26px 18px;background:color-mix(in srgb,var(--side) 92%,transparent);border-right:1px solid var(--line);box-shadow:12px 0 40px -35px var(--acc1)}
+.slogo{padding:4px 9px 28px}
+.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,var(--card2),var(--bg));box-shadow:0 7px 24px -12px var(--acc1)}
+.slogo b{font-size:11px;letter-spacing:.12em}
+.navi{padding:13px 15px;border-radius:13px;font-size:13px}
+.navi.active{font-weight:800;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--acc1) 20%,transparent)}
+.main{max-width:1640px;margin-inline:auto;padding:0 clamp(18px,3vw,46px) 52px}
+.topbar{padding:30px 2px 18px;align-items:center}
+.greet h2{font-size:clamp(21px,2.1vw,28px);letter-spacing:-.045em;font-weight:800}
+.greet p{font-size:12px;margin-top:4px;letter-spacing:0}
+.chip-name,.clockchip{padding:10px 15px;border-radius:13px;background:var(--card);box-shadow:0 6px 24px -20px var(--acc1)}
+.clockchip{border-color:color-mix(in srgb,var(--acc1) 25%,var(--line))}
+.mtabs{border:1px solid var(--line);border-radius:16px;padding:8px;margin:0 0 18px;background:var(--card);box-shadow:var(--shadow)}
+.mtab{border-color:transparent}
+.mtab.active{font-weight:800}
+.card{border-radius:var(--radius-lg);padding:clamp(18px,2.2vw,26px);margin-bottom:18px;box-shadow:0 12px 36px -28px rgba(0,0,0,.8),inset 0 1px 0 color-mix(in srgb,var(--text) 3%,transparent)}
+.card h2{font-size:11px;letter-spacing:.14em;margin-bottom:18px}
+.profile{gap:18px}
+.avatar{border-radius:18px;width:68px;height:68px}
+.profile h3{font-size:19px;letter-spacing:-.03em}
+.comp-badge{letter-spacing:.1em}
+.kpis{gap:13px;margin:0 0 18px;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr))}
+.kpi{border-radius:19px;padding:19px;background:linear-gradient(150deg,var(--card2),var(--card));box-shadow:0 15px 34px -28px var(--acc1),inset 0 1px 0 color-mix(in srgb,var(--text) 4%,transparent)}
+.kpi-lbl{font-size:9px;letter-spacing:.13em;max-width:82%}
+.kpi-val{font-size:clamp(22px,2vw,29px);letter-spacing:-.04em}
+.kpi-ico{width:34px;height:34px;border-radius:12px}
+.grid{gap:15px}
+label{letter-spacing:.1em}
+input,select{border-radius:12px;min-height:44px;font-size:13px}
+.btn{min-height:42px;padding:12px 17px;border-radius:12px;letter-spacing:.055em}
+.btn-primary{box-shadow:0 8px 25px -15px var(--acc1)}
+.btn-ghost{background:var(--card2)}
+.tbl-wrap{border-radius:15px;max-height:460px}
+table{font-size:12px}
+thead th{padding:13px 14px}
+tbody td{padding:13px 14px}
+tbody tr:hover td{background:color-mix(in srgb,var(--soft1) 65%,transparent)}
+.btn-edit,.btn-del{min-width:34px;min-height:34px}
+.note{line-height:1.75}
+footer{padding-top:18px;border-top:1px solid var(--line);letter-spacing:.1em}
+#toast{bottom:24px;border-radius:14px;backdrop-filter:blur(18px)}
+/* More legible states and reduced motion */
+:where(button,input,select):focus-visible{outline:2px solid var(--acc1);outline-offset:3px}
+input::placeholder{color:var(--muted);opacity:.7}
+.empty{padding:38px 20px!important}
+@media(min-width:961px){.main{padding-top:4px}.sec.on{max-width:1420px;margin-inline:auto}}
+@media(max-width:960px){.main{padding-inline:clamp(12px,3vw,24px)}.topbar{padding-top:20px}.mtabs{top:8px}}
+@media(max-width:600px){.topbar{gap:12px}.top-right{width:100%;justify-content:space-between}.chip-name{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.clockchip{font-size:12px}.card{border-radius:18px}.profile .btn{padding:10px 12px}.tbl-head{align-items:flex-start}.tbl-head>div{width:100%}#filterSearch{flex:1;min-width:130px}.tbl-head input[type=month]{max-width:155px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 </style>
 </head>
 <body>
@@ -382,7 +438,7 @@ footer .tag{color:var(--acc1);font-weight:800;letter-spacing:.3em}
         <div class="tbl-head">
           <h2 style="margin:0"><span class="mk"></span>Riwayat Kehadiran</h2>
           <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-            <input type="month" id="filterMonth" style="width:auto">
+            <input type="search" id="filterSearch" placeholder="Cari tanggal / jam…" aria-label="Cari riwayat" style="width:min(230px,100%)"><input type="month" id="filterMonth" aria-label="Filter bulan" style="width:auto">
             <button class="btn btn-ghost" id="btnCsv">Ekspor CSV</button>
           </div>
         </div>
@@ -626,7 +682,7 @@ function renderRecent(){
     return `<tr><td>${fmtDate(r.date)}</td><td>${r.in||'—'}</td><td>${r.out||'—'}</td><td>${dur(c.work)}</td><td>${pill(c.ot)}</td></tr>`}).join('');
   $('#recentBody').innerHTML=rows||'<tr><td colspan="5" class="empty">Belum ada catatan.</td></tr>';
 }
-const filteredHist=()=>{const m=$('#filterMonth').value;return sorted().filter(r=>!m||r.date.startsWith(m))};
+const filteredHist=()=>{const m=$('#filterMonth').value,q=($('#filterSearch')?.value||'').trim().toLowerCase();return sorted().filter(r=>(!m||r.date.startsWith(m))&&(!q||[r.date,r.in,r.bs,r.be,r.out].some(v=>String(v||'').toLowerCase().includes(q))||fmtDate(r.date).toLowerCase().includes(q)))};
 function renderHistory(){
   const rows=filteredHist().map(r=>{const c=calc(r);
     return `<tr><td>${fmtDate(r.date)}</td><td>${r.in||'—'}</td><td>${r.bs||'—'}</td><td>${r.be||'—'}</td><td>${r.out||'—'}</td><td>${dur(c.work)}</td><td>${pill(c.ot)}</td>
@@ -713,7 +769,7 @@ document.querySelectorAll('[data-tab]').forEach(b=>{
 activateTab('dashboard');
 $('#btnSeeAll').onclick=()=>document.querySelector('.mtab[data-tab="riwayat"]').click();
 $('#btnEditProfile').onclick=()=>document.querySelector('.mtab[data-tab="pengaturan"]').click();
-$('#filterMonth').onchange=renderHistory;
+$('#filterMonth').onchange=renderHistory;$('#filterSearch').oninput=renderHistory;
 $('#rcMode').onchange=()=>{renderRecap();renderCharts()};
 $('#rcMonth').onchange=()=>{renderRecap();renderCharts()};
 
