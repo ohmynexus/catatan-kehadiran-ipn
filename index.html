@@ -51,10 +51,10 @@ button{font-family:inherit}
 .side{width:236px;flex:none;background:var(--side);border-right:1px solid var(--line);padding:20px 14px;
   display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh}
 .slogo{display:flex;align-items:center;gap:11px;padding:2px 8px 18px}
-.logo{width:40px;height:40px;border-radius:12px;flex:none;background:var(--bg);border:1.5px solid var(--acc1);
+.logo{width:40px;height:40px;object-fit:contain;display:block;border:0;background:transparent;box-shadow:none;border-radius:50%;border-radius:12px;flex:none;background:var(--bg);border:1.5px solid var(--acc1);
   display:grid;place-items:center;font:800 10px 'Plus Jakarta Sans';letter-spacing:.08em;color:var(--text);position:relative;
   box-shadow:0 0 16px -6px var(--acc1)}
-.logo::before{content:'';position:absolute;inset:3px;border:1px solid var(--acc2);border-radius:8px}
+.logo::before{content:none}
 .slogo b{font-size:12.5px;font-weight:800;letter-spacing:.1em}
 .slogo small{display:block;font-size:9px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
 .navi{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:11px 14px;border:none;border-radius:12px;
@@ -258,7 +258,7 @@ body::before{opacity:.25}
 .app{gap:0}
 .side{width:258px;padding:26px 18px;background:color-mix(in srgb,var(--side) 92%,transparent);border-right:1px solid var(--line);box-shadow:12px 0 40px -35px var(--acc1)}
 .slogo{padding:4px 9px 28px}
-.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,var(--card2),var(--bg));box-shadow:0 7px 24px -12px var(--acc1)}
+.logo{width:44px;height:44px;object-fit:contain;display:block;border:0;background:transparent;box-shadow:none;border-radius:50%;border-radius:15px;background:linear-gradient(145deg,var(--card2),var(--bg));box-shadow:0 7px 24px -12px var(--acc1)}
 .slogo b{font-size:11px;letter-spacing:.12em}
 .navi{padding:13px 15px;border-radius:13px;font-size:13px}
 .navi.active{font-weight:800;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--acc1) 20%,transparent)}
@@ -464,7 +464,7 @@ input::placeholder{color:var(--muted);opacity:.7}
   <!-- ========== SIDEBAR ========== -->
   <aside class="side">
     <div class="slogo">
-      <div class="logo">IPN</div>
+      <img class="logo" src="./icons/ipn-namatota-brand.svg" alt="IPN NAMATOTA">
       <div><b>IPN NAMATOTA</b><small>Neon Attendance • Catatan Kerja</small></div>
     </div>
     <button class="navi active" data-tab="dashboard"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</button>
@@ -485,7 +485,7 @@ input::placeholder{color:var(--muted);opacity:.7}
   <!-- ========== MAIN ========== -->
   <div class="main">
     <div class="mbrand">
-      <div class="logo">IPN</div>
+      <img class="logo" src="./icons/ipn-namatota-brand.svg" alt="IPN NAMATOTA">
       <div><b>IPN NAMATOTA</b><small>Catatan Kehadiran Kerja Pribadi</small></div>
     </div>
 

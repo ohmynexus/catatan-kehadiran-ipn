@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" fill="#fff"/>
+<circle cx="256" cy="256" r="244" fill="#fff" stroke="#123f88" stroke-width="10"/>
+<path d="M50 229 Q256 55 462 229 Q256 403 50 229Z" fill="none" stroke="#ed101c" stroke-width="17" stroke-linejoin="round"/>
+<path d="M50 229 L78 170 M50 229 L78 288" fill="none" stroke="#ed101c" stroke-width="17" stroke-linecap="butt"/>
+<text x="256" y="270" fill="#123f88" font-family="Georgia, 'Times New Roman', serif" font-size="124" font-weight="bold" text-anchor="middle" letter-spacing="-4">IPN</text>
+<path d="M58 326 Q93 348 128 326 T198 326 T268 326 T338 326 T408 326 T454 326 L454 364 L58 364Z" fill="#123f88"/>
+<text x="256" y="411" fill="#123f88" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="900" text-anchor="middle" letter-spacing=".4">IPN NAMATOTA</text>
+</svg>
