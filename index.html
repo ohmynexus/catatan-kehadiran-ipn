@@ -375,6 +375,35 @@ input::placeholder{color:var(--muted);opacity:.7}
   .sec.on>*{animation:none!important}
 }
 
+
+/* ===== NAV VISUAL CLEANUP: remove stacked tab surfaces ===== */
+@media(max-width:960px){
+  /* Remove the enclosing card/frame behind the individual tabs. */
+  .mtabs{
+    border:0!important;border-radius:0!important;
+    background:transparent!important;box-shadow:none!important;
+    backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+    padding:8px 0!important;margin:4px 0 14px!important;
+    gap:6px!important;
+  }
+  /* Inactive tabs are labels, not a second row of boxed chips. */
+  .mtab{
+    background:transparent!important;border-color:transparent!important;
+    box-shadow:none!important;
+  }
+  /* Only the active item receives one intentional surface. */
+  .mtab.active{
+    color:var(--bg)!important;background:transparent!important;
+    border-color:transparent!important;
+    box-shadow:0 4px 15px -8px var(--acc1)!important;
+  }
+  .mtab.active::after{
+    inset:0!important;border:0!important;border-radius:999px!important;
+    background:linear-gradient(120deg,var(--acc1),color-mix(in srgb,var(--acc1) 70%,var(--acc2)))!important;
+    box-shadow:none!important;opacity:1!important;transform:scale(1)!important;
+  }
+}
+
 </style>
 </head>
 <body>
