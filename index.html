@@ -404,6 +404,24 @@ input::placeholder{color:var(--muted);opacity:.7}
   }
 }
 
+
+/* ===== HOTFIX: Electric Pop active label contrast ===== */
+@media(max-width:960px){
+  .mtabs .mtab.active{
+    color:#07141a!important;
+    background:linear-gradient(125deg,#35e6f5,#29cce9)!important;
+    border:1px solid #71f2ff!important;
+    box-shadow:0 4px 16px -7px #20d8ef88!important;
+    text-shadow:none!important;
+    font-weight:800!important;
+  }
+  /* The former pseudo-layer caused the fill to render behind the button. */
+  .mtabs .mtab.active::after{display:none!important;content:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .mtabs .mtab.active{animation:none!important}
+}
+
 </style>
 </head>
 <body>
