@@ -422,6 +422,18 @@ input::placeholder{color:var(--muted);opacity:.7}
   .mtabs .mtab.active{animation:none!important}
 }
 
+/* ===== FIX: active tab label contrast ===== */
+@media(max-width:960px){
+  .mtabs .mtab.active{
+    color:#eafcff!important;
+    background:rgba(31,205,231,.12)!important;
+    border-color:#35e6f5!important;
+    text-shadow:none!important;
+    text-shadow:0 0 8px rgba(53,230,245,.18)!important;
+  }
+  /* The decorative layer was obscuring the selected tab label. */
+  .mtabs .mtab.active::after{display:none!important;content:none!important}
+}
 </style>
 </head>
 <body>
