@@ -208,6 +208,48 @@ footer .tag{color:var(--acc1);font-weight:800;letter-spacing:.3em}
   .topbar{padding-top:14px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Premium navigation refinement */
+.navi,.mtab{isolation:isolate;overflow:hidden}
+.navi::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(100deg,var(--soft1),transparent 72%);opacity:0;transform:translateX(-12px);transition:opacity .28s ease,transform .32s cubic-bezier(.2,.75,.25,1);z-index:-1;pointer-events:none}
+.navi.active::after{opacity:1;transform:translateX(0)}
+.navi.active::before{height:58%;top:21%;bottom:auto;box-shadow:0 0 14px var(--acc1);animation:navGlow .35s ease both}
+@keyframes navGlow{from{transform:scaleY(.35);opacity:.4}to{transform:scaleY(1);opacity:1}}
+.mtabs{border-bottom:1px solid var(--line);box-shadow:0 10px 24px -24px var(--acc1)}
+.mtab{position:relative;overflow:hidden}
+.mtab::after{content:"";position:absolute;left:16px;right:16px;bottom:3px;height:2px;border-radius:4px;background:var(--acc1);transform:scaleX(0);transform-origin:center;transition:transform .28s cubic-bezier(.2,.75,.25,1);box-shadow:0 0 10px var(--acc1)}
+.mtab.active::after{transform:scaleX(1)}
+.navi:focus-visible,.mtab:focus-visible,.btn:focus-visible,.themebtn:focus-visible{outline:2px solid var(--acc1);outline-offset:3px}
+.sec{display:block;position:absolute;visibility:hidden;opacity:0;pointer-events:none;inset:auto auto auto -100000px;width:calc(100% - 2px)}
+.sec.on{position:relative;inset:auto;width:auto;visibility:visible;opacity:1;pointer-events:auto;animation:sectionEnter .32s cubic-bezier(.2,.75,.25,1) both}
+@keyframes sectionEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card,.kpi{backface-visibility:hidden}
+.card{transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease}
+.card:hover{border-color:var(--line2)}
+.btn,.themebtn,.thdot,.btn-edit,.btn-del{transition:transform .2s ease,background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease}
+.btn:focus-visible,.navi:focus-visible,.mtab:focus-visible{scroll-margin:100px}
+@media(max-width:960px){
+ .mtabs{margin:4px -2px 8px;padding:11px 2px;gap:7px}
+ .mtab{padding:9px 14px;white-space:nowrap}
+ .sec.on{min-height:45vh}
+}
+@media(max-width:520px){
+ .main{padding-left:12px;padding-right:12px}
+ .topbar{align-items:flex-start}
+ .greet h2{font-size:17px}
+ .clockchip{padding:7px 10px}
+ .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .kpi{padding:13px;border-radius:14px}
+ .kpi-val{font-size:20px}
+ .kpi-ico{width:26px;height:26px;top:10px;right:10px}
+ .charts-2{grid-template-columns:minmax(0,1fr)}
+ .btnrow .btn{flex:1 1 auto}
+}
+@media(prefers-reduced-motion:reduce){
+ .navi::after,.mtab::after{transition:none}
+ .sec.on{animation:none}
+}
+
 </style>
 </head>
 <body>
@@ -650,12 +692,25 @@ $('#histBody').addEventListener('click',e=>{
 });
 
 /* ========== NAV ========== */
-document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{
-  const t=b.getAttribute('data-tab');
-  document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.getAttribute('data-tab')===t));
-  document.querySelectorAll('.sec').forEach(x=>x.classList.remove('on'));
-  $('#sec-'+t).classList.add('on');
+function activateTab(t){
+  if(!document.getElementById('sec-'+t))return;
+  document.querySelectorAll('[data-tab]').forEach(x=>{
+    const active=x.getAttribute('data-tab')===t;
+    x.classList.toggle('active',active);
+    x.setAttribute('aria-current',active?'page':'false');
+  });
+  document.querySelectorAll('.sec').forEach(x=>{
+    const active=x.id==='sec-'+t;
+    x.classList.toggle('on',active);
+    x.setAttribute('aria-hidden',String(!active));
+  });
+}
+document.querySelectorAll('[data-tab]').forEach(b=>{
+  b.setAttribute('aria-controls','sec-'+b.getAttribute('data-tab'));
+  b.setAttribute('aria-current',b.classList.contains('active')?'page':'false');
+  b.onclick=()=>activateTab(b.getAttribute('data-tab'));
 });
+activateTab('dashboard');
 $('#btnSeeAll').onclick=()=>document.querySelector('.mtab[data-tab="riwayat"]').click();
 $('#btnEditProfile').onclick=()=>document.querySelector('.mtab[data-tab="pengaturan"]').click();
 $('#filterMonth').onchange=renderHistory;
