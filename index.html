@@ -828,7 +828,8 @@ function renderProfile(){
 }
 function renderShiftSummary(){
   const t=todayStr(), rs=records.filter(r=>r.date===t).sort((a,b)=>(a.in||'').localeCompare(b.in||''));
-  const totals=rs.reduce((acc,r)=>{const c=calc(r);acc.work+=c.work;acc.ot+=c.ot;acc.payOt+=Math.floor(c.ot/60);return acc;},{work:0,ot:0,payOt:0});
+  const totals=rs.reduce((acc,r)=>{const c=calc(r);acc.work+=c.work;acc.ot+=c.ot;return acc;},{work:0,ot:0});
+  totals.payOt=Math.floor(totals.ot/60);
   const first=rs[0],last=rs[rs.length-1];
   $('#dashShiftIn').textContent=first?.in||'—';
   $('#dashShiftOut').textContent=last?.out||'—';
