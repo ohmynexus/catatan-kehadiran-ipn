@@ -451,6 +451,11 @@ input::placeholder{color:var(--muted);opacity:.7}
 .dash-shift-pay small{font-size:10px;color:var(--muted);text-align:right;max-width:46%}
 @media(max-width:620px){.dash-shift{padding:13px}.dash-shift-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dash-shift-grid>div{padding:11px}.dash-shift-pay{align-items:flex-start;flex-direction:column}.dash-shift-pay small{text-align:left;max-width:none}}
 
+
+/* Optional Personal Notes tab */
+.mtab[hidden]{display:none!important}
+.pnote-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pnote-metric{padding:15px;border:1px solid var(--line2);background:var(--card);border-radius:15px}.pnote-metric strong{display:block;font:800 23px 'JetBrains Mono',monospace;color:var(--acc1);margin-top:5px}.pnote-list{display:grid;gap:9px}.pnote-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border:1px solid var(--line);background:var(--card2);padding:12px;border-radius:13px}.pnote-item small{display:block;color:var(--muted);margin-top:3px}.pnote-item .amt{text-align:right;white-space:nowrap;font-weight:750}.pnote-tag{font-size:10px;color:var(--acc1);margin-top:5px;display:inline-block}.pnote-item button{margin-top:5px}.pnote-form{display:grid;grid-template-columns:1fr 1fr;gap:11px}.pnote-form .wide{grid-column:1/-1}@media(max-width:600px){.pnote-grid{grid-template-columns:1fr 1fr}.pnote-item{gap:6px}.pnote-item .amt{white-space:normal}.pnote-form{gap:8px}}
+
 </style>
 </head>
 <body>
@@ -497,6 +502,7 @@ input::placeholder{color:var(--muted);opacity:.7}
       <button class="mtab" data-tab="riwayat">Riwayat</button>
       <button class="mtab" data-tab="rekap">Rekap</button>
       <button class="mtab" data-tab="pengaturan">Pengaturan</button>
+      <button class="mtab" data-tab="personal" id="tabPersonal" hidden>Personal</button>
     </nav>
 
     <!-- ===== DASHBOARD ===== -->
@@ -594,6 +600,42 @@ input::placeholder{color:var(--muted);opacity:.7}
     </section>
 
     <!-- ===== RIWAYAT ===== -->
+    <section class="sec" id="sec-personal">
+      <div class="card">
+        <h2><span class="mk"></span>Catatan Personal IPN</h2>
+        <p class="note" style="margin-top:-5px">Pengingat pribadi saja. Tidak mengurangi atau mengubah upah lembur.</p>
+        <div class="pnote-grid">
+          <div class="pnote-metric"><div class="kpi-lbl">Utang belum lunas</div><strong id="pnDebtTotal">Rp0</strong><small id="pnDebtCount" class="note">0 catatan aktif</small></div>
+          <div class="pnote-metric"><div class="kpi-lbl">Pengeluaran tercatat</div><strong id="pnExpenseTotal">Rp0</strong><small class="note">Total nominal catatan</small></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2><span class="mk"></span>Tambah Catatan</h2>
+        <div class="tabs" style="display:flex;gap:8px;margin-bottom:14px">
+          <button class="btn btn-primary" id="pnKindDebt" type="button">Catat utang</button>
+          <button class="btn btn-ghost" id="pnKindExpense" type="button">Catat pengeluaran</button>
+        </div>
+        <div class="pnote-form">
+          <div class="wide"><label id="pnNameLabel">Nama / keperluan</label><input id="pnName" maxlength="100" placeholder="Contoh: Pinjaman teman"></div>
+          <div><label>Jumlah (Rp)</label><input id="pnAmount" type="number" min="1" step="1" inputmode="numeric"></div>
+          <div><label>Tanggal</label><input id="pnDate" type="date"></div>
+          <div class="wide" id="pnDueWrap"><label>Jatuh tempo (opsional)</label><input id="pnDue" type="date"></div>
+          <div class="wide"><label>Catatan / pengingat</label><input id="pnMemo" maxlength="240" placeholder="Contoh: bayar setelah gajian"></div>
+        </div>
+        <div class="btnrow"><button class="btn btn-primary" id="pnSave" type="button">Simpan catatan personal</button></div>
+        <p class="note">Disimpan lokal di browser perangkat ini, terpisah dari catatan kehadiran.</p>
+      </div>
+      <div class="card">
+        <h2><span class="mk"></span>Daftar Personal</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+          <button class="btn btn-ghost pn-filter active" data-pn-filter="all">Semua</button>
+          <button class="btn btn-ghost pn-filter" data-pn-filter="debt">Utang</button>
+          <button class="btn btn-ghost pn-filter" data-pn-filter="expense">Pengeluaran</button>
+        </div>
+        <div id="pnList" class="pnote-list"></div>
+      </div>
+    </section>
+
     <section class="sec" id="sec-riwayat">
       <div class="card">
         <div class="tbl-head">
@@ -672,6 +714,15 @@ input::placeholder{color:var(--muted);opacity:.7}
       </div>
 
       <div class="card">
+        <h2><span class="mk"></span>Fitur Opsional</h2>
+        <label style="display:flex;align-items:center;gap:10px;color:var(--text);font-size:13px">
+          <input type="checkbox" id="sPersonalEnabled" style="width:18px;height:18px;accent-color:var(--acc1)">
+          Aktifkan Catatan Personal IPN
+        </label>
+        <p class="note">Modul terpisah untuk pengingat utang dan pengeluaran. Menonaktifkan hanya menyembunyikan menu, tidak menghapus datanya. Catatan ini tidak mengubah jam maupun upah lembur.</p>
+      </div>
+
+      <div class="card">
         <h2><span class="mk"></span>Data &amp; Cadangan</h2>
         <p class="note" style="margin:0 0 14px">Data disimpan secara lokal di browser perangkat ini. Hapus data browser dapat menghilangkannya. Buat cadangan berkala.</p>
         <div class="btnrow" style="margin-top:0">
@@ -693,6 +744,7 @@ input::placeholder{color:var(--muted);opacity:.7}
 <script>
 /* ========== LOGIKA INTI (TETAP SAMA) ========== */
 const $=s=>document.querySelector(s);
+
 const LS_REC='ipna.records', LS_SET='ipna.settings';
 const DEF={name:'',photo:'',in:'08:00',bs:'12:00',be:'13:00',out:'16:00',rate:15000};
 let records=load(LS_REC,[]), settings=Object.assign({},DEF,load(LS_SET,{})), editingId=null;
@@ -715,6 +767,19 @@ function calc(r){
   return{work,ot};
 }
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2600)}
+
+/* ===== PERSONAL NOTES: isolated from attendance/pay calculations ===== */
+const LS_PERSONAL='ipna.personal.entries',LS_PERSONAL_ON='ipna.personal.enabled';
+let pnKind='debt',pnFilter='all',pnEntries=load(LS_PERSONAL,[]);
+function pnToggle(on){const tab=$('#tabPersonal');tab.hidden=!on;if(!on&&document.getElementById('sec-personal').classList.contains('on'))activateTab('dashboard')}
+function pnKindSet(kind){pnKind=kind;$('#pnKindDebt').className='btn '+(kind==='debt'?'btn-primary':'btn-ghost');$('#pnKindExpense').className='btn '+(kind==='expense'?'btn-primary':'btn-ghost');$('#pnNameLabel').textContent=kind==='debt'?'Nama / kepada siapa':'Nama pengeluaran';$('#pnName').placeholder=kind==='debt'?'Contoh: Pinjaman teman':'Contoh: Belanja bulanan';$('#pnDueWrap').style.display=kind==='debt'?'':'none'}
+function pnSave(){const name=$('#pnName').value.trim(),amount=Number($('#pnAmount').value),date=$('#pnDate').value;if(!name||!Number.isFinite(amount)||amount<=0||!date){toast('Lengkapi nama, jumlah, dan tanggal dengan benar.');return}pnEntries.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),kind:pnKind,name,amount:Math.round(amount),date,due:pnKind==='debt'?$('#pnDue').value:'',memo:$('#pnMemo').value.trim(),status:'open'});try{localStorage.setItem(LS_PERSONAL,JSON.stringify(pnEntries))}catch(e){toast('Penyimpanan personal penuh.');return}$('#pnName').value='';$('#pnAmount').value='';$('#pnMemo').value='';renderPersonal();toast('Catatan personal tersimpan.')}
+function renderPersonal(){const open=pnEntries.filter(e=>e.kind==='debt'&&e.status!=='paid'),expenses=pnEntries.filter(e=>e.kind==='expense');$('#pnDebtTotal').textContent=rp(open.reduce((s,e)=>s+e.amount,0));$('#pnDebtCount').textContent=open.length+' catatan aktif';$('#pnExpenseTotal').textContent=rp(expenses.reduce((s,e)=>s+e.amount,0));const arr=pnEntries.filter(e=>pnFilter==='all'||e.kind===pnFilter);$('#pnList').innerHTML=arr.length?arr.map(e=>'<div class="pnote-item"><div><b>'+esc(e.kind==='debt'?'Utang · '+e.name:'Pengeluaran · '+e.name)+'</b><small>'+fmtDate(e.date)+(e.due?' · Jatuh tempo '+fmtDate(e.due):'')+'</small>'+(e.memo?'<small>'+esc(e.memo)+'</small>':'')+'<span class="pnote-tag">'+(e.kind==='debt'?(e.status==='paid'?'LUNAS':'BELUM LUNAS'):'CATATAN PERSONAL')+'</span></div><div class="amt">'+rp(e.amount)+(e.kind==='debt'&&e.status!=='paid'?'<br><button class="btn btn-ghost" data-pn-paid="'+e.id+'">Tandai lunas</button>':'')+'<br><button class="btn btn-ghost" data-pn-delete="'+e.id+'">Hapus</button></div></div>').join(''):'<div class="empty">Belum ada catatan personal.</div>';$('#pnList').querySelectorAll('[data-pn-paid]').forEach(b=>b.onclick=()=>{const e=pnEntries.find(x=>x.id===b.dataset.pnPaid);if(e){e.status='paid';localStorage.setItem(LS_PERSONAL,JSON.stringify(pnEntries));renderPersonal()}});$('#pnList').querySelectorAll('[data-pn-delete]').forEach(b=>b.onclick=()=>{if(confirm('Hapus catatan personal ini?')){pnEntries=pnEntries.filter(x=>x.id!==b.dataset.pnDelete);localStorage.setItem(LS_PERSONAL,JSON.stringify(pnEntries));renderPersonal()}})}
+$('#pnKindDebt').onclick=()=>pnKindSet('debt');$('#pnKindExpense').onclick=()=>pnKindSet('expense');$('#pnSave').onclick=pnSave;$('#pnDate').value=todayStr();document.querySelectorAll('.pn-filter').forEach(b=>b.onclick=()=>{pnFilter=b.dataset.pnFilter;document.querySelectorAll('.pn-filter').forEach(x=>x.classList.toggle('active',x===b));renderPersonal()});pnKindSet('debt');const pnEnabled=load(LS_PERSONAL_ON,false)===true||load(LS_PERSONAL_ON,false)==='true';$('#sPersonalEnabled').checked=pnEnabled;pnToggle(pnEnabled);renderPersonal();
+$('#sPersonalEnabled').onchange=e=>{const enabled=e.target.checked;try{localStorage.setItem(LS_PERSONAL_ON,JSON.stringify(enabled))}catch(err){}pnToggle(enabled);if(enabled){activateTab('personal');renderPersonal()}else{toast('Catatan Personal dinonaktifkan. Data tetap tersimpan.')}};
+
+
+
 
 /* ========== TEMA ========== */
 function setTheme(n){
