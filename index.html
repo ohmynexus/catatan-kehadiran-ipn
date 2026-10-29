@@ -456,6 +456,19 @@ input::placeholder{color:var(--muted);opacity:.7}
 .mtab[hidden]{display:none!important}
 .pnote-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.pnote-metric{padding:15px;border:1px solid var(--line2);background:var(--card);border-radius:15px}.pnote-metric strong{display:block;font:800 23px 'JetBrains Mono',monospace;color:var(--acc1);margin-top:5px}.pnote-list{display:grid;gap:9px}.pnote-item{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border:1px solid var(--line);background:var(--card2);padding:12px;border-radius:13px}.pnote-item small{display:block;color:var(--muted);margin-top:3px}.pnote-item .amt{text-align:right;white-space:nowrap;font-weight:750}.pnote-tag{font-size:10px;color:var(--acc1);margin-top:5px;display:inline-block}.pnote-item button{margin-top:5px}.pnote-form{display:grid;grid-template-columns:1fr 1fr;gap:11px}.pnote-form .wide{grid-column:1/-1}@media(max-width:600px){.pnote-grid{grid-template-columns:1fr 1fr}.pnote-item{gap:6px}.pnote-item .amt{white-space:normal}.pnote-form{gap:8px}}
 
+
+/* ===== LAYOUT 02 · ATTENDANCE FIRST ===== */
+#sec-dashboard{display:flex;flex-direction:column}
+#sec-dashboard>.card:nth-child(2){order:0;border-color:color-mix(in srgb,var(--acc1) 42%,var(--line));box-shadow:0 16px 44px -30px var(--acc1),var(--shadow)}
+#sec-dashboard>.card:nth-child(2)>h2{color:var(--text);font-size:12px;letter-spacing:.12em}
+#sec-dashboard>.card:nth-child(2) .grid{gap:14px}
+#sec-dashboard>.card:nth-child(2) input{min-height:48px;font-size:15px}
+#sec-dashboard>.card:nth-child(2) .btn-primary{min-height:46px;padding-inline:24px}
+#sec-dashboard>.dash-shift{order:1}
+#sec-dashboard>.kpis{order:2}
+#sec-dashboard>.card:first-child{order:4}
+#sec-dashboard>.card:not(:first-child):not(:nth-child(2)){order:3}
+@media(max-width:620px){#sec-dashboard>.card:nth-child(2){padding:15px;border-radius:18px}#sec-dashboard>.card:nth-child(2) .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#sec-dashboard>.card:nth-child(2) .btnrow{position:sticky;bottom:8px;z-index:5;padding:8px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(12px)}#sec-dashboard>.card:nth-child(2) .btnrow .btn-primary{flex:1 1 100%}#sec-dashboard>.card:nth-child(2) .note{font-size:10.5px}}
 </style>
 </head>
 <body>
