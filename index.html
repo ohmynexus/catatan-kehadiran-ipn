@@ -306,6 +306,21 @@ input::placeholder{color:var(--muted);opacity:.7}
 @media(max-width:600px){.topbar{gap:12px}.top-right{width:100%;justify-content:space-between}.chip-name{max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.clockchip{font-size:12px}.card{border-radius:18px}.profile .btn{padding:10px 12px}.tbl-head{align-items:flex-start}.tbl-head>div{width:100%}#filterSearch{flex:1;min-width:130px}.tbl-head input[type=month]{max-width:155px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+
+/* ===== MOBILE LAYOUT FIX: no off-canvas sections / phantom scroll ===== */
+@media(max-width:960px){
+  .app{min-height:0}
+  .main{min-height:0;padding-bottom:24px}
+  .sec{display:none;position:relative;inset:auto;width:auto;visibility:visible;opacity:1;pointer-events:auto}
+  .sec.on{display:block;position:relative;inset:auto;width:auto;min-height:0;visibility:visible;opacity:1;pointer-events:auto}
+  .sec.on>*{animation:fadeUp .3s both}
+  .mtabs{position:relative;top:auto;z-index:5}
+  footer{margin-top:18px;padding-bottom:8px}
+}
+@media(max-width:960px) and (prefers-reduced-motion:reduce){
+  .sec.on>*{animation:none}
+}
+
 </style>
 </head>
 <body>
