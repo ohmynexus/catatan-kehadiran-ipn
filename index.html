@@ -422,6 +422,18 @@ input::placeholder{color:var(--muted);opacity:.7}
   .mtabs .mtab.active{animation:none!important}
 }
 
+/* ===== FIX: active tab label contrast ===== */
+@media(max-width:960px){
+  .mtabs .mtab.active{
+    color:#eafcff!important;
+    text-shadow:0 0 8px rgba(53,230,245,.18)!important;
+  }
+  /* Keep the selected tab's existing visual style, but prevent its
+     decorative layer from painting over the label. */
+  .mtabs .mtab.active::after{z-index:0}
+  .mtabs .mtab.active{isolation:isolate}
+  .mtabs .mtab.active>*{position:relative;z-index:1}
+}
 </style>
 </head>
 <body>
