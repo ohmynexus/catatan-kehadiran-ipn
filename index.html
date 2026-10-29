@@ -514,6 +514,27 @@ input::placeholder{color:var(--muted);opacity:.7}
         </div>
       </div>
 
+      <!-- Attendance entry prioritized near the top for faster daily use -->
+      <div class="card">
+        <h2><span class="mk"></span>Catat Kehadiran</h2>
+        <div class="grid">
+          <div><label>Tanggal kerja</label><input type="date" id="fDate"></div>
+          <div><label>Jam masuk</label><input type="time" id="fIn"></div>
+          <div><label>Mulai istirahat</label><input type="time" id="fBs"></div>
+          <div><label>Selesai istirahat / masuk siang</label><input type="time" id="fBe"></div>
+          <div><label>Jam pulang aktual</label><input type="time" id="fOut"></div>
+          <div><label>Lembur manual (opsional, menit)</label><input type="number" id="fMan" min="0" step="1" placeholder="0"></div>
+        </div>
+        <div class="hint" id="estimate">Isi jam untuk melihat estimasi durasi.</div>
+        <div class="btnrow">
+          <button class="btn btn-primary" id="btnSave">Simpan catatan</button>
+          <button class="btn btn-ghost hidden" id="btnCancel">Batal edit</button>
+          <button class="btn btn-ghost" id="btnClear">Kosongkan</button>
+        </div>
+        <p class="note">Batas lembur tetap pukul 16:00; hanya selisih pulang aktual setelah 16:00 yang dihitung. Jam masuk & istirahat dipertahankan setelah simpan; tanggal otomatis maju 1 hari.</p>
+      </div>
+
+      
       <section class="dash-shift" aria-label="Ringkasan jam kerja hari ini">
         <div class="dash-shift-head">
           <div><div class="kpi-lbl">Ringkasan Hari Ini</div><p id="dashShiftCaption">Jam masuk, pulang, kerja efektif, dan estimasi lembur</p></div>
@@ -558,25 +579,6 @@ input::placeholder{color:var(--muted);opacity:.7}
           <span><i class="sw" style="background:var(--acc2);opacity:.75"></i>Jam kerja (menit)</span>
           <span><i class="sw" style="background:var(--acc1)"></i>Lembur (menit)</span>
         </div>
-      </div>
-
-      <div class="card">
-        <h2><span class="mk"></span>Catat Kehadiran</h2>
-        <div class="grid">
-          <div><label>Tanggal kerja</label><input type="date" id="fDate"></div>
-          <div><label>Jam masuk</label><input type="time" id="fIn"></div>
-          <div><label>Mulai istirahat</label><input type="time" id="fBs"></div>
-          <div><label>Selesai istirahat / masuk siang</label><input type="time" id="fBe"></div>
-          <div><label>Jam pulang aktual</label><input type="time" id="fOut"></div>
-          <div><label>Lembur manual (opsional, menit)</label><input type="number" id="fMan" min="0" step="1" placeholder="0"></div>
-        </div>
-        <div class="hint" id="estimate">Isi jam untuk melihat estimasi durasi.</div>
-        <div class="btnrow">
-          <button class="btn btn-primary" id="btnSave">Simpan catatan</button>
-          <button class="btn btn-ghost hidden" id="btnCancel">Batal edit</button>
-          <button class="btn btn-ghost" id="btnClear">Kosongkan</button>
-        </div>
-        <p class="note">Batas lembur tetap pukul 16:00; hanya selisih pulang aktual setelah 16:00 yang dihitung. Jam masuk & istirahat dipertahankan setelah simpan; tanggal otomatis maju 1 hari.</p>
       </div>
 
       <div class="card">
