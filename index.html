@@ -426,13 +426,13 @@ input::placeholder{color:var(--muted);opacity:.7}
 @media(max-width:960px){
   .mtabs .mtab.active{
     color:#eafcff!important;
+    background:rgba(31,205,231,.12)!important;
+    border-color:#35e6f5!important;
+    text-shadow:none!important;
     text-shadow:0 0 8px rgba(53,230,245,.18)!important;
   }
-  /* Keep the selected tab's existing visual style, but prevent its
-     decorative layer from painting over the label. */
-  .mtabs .mtab.active::after{z-index:0}
-  .mtabs .mtab.active{isolation:isolate}
-  .mtabs .mtab.active>*{position:relative;z-index:1}
+  /* The decorative layer was obscuring the selected tab label. */
+  .mtabs .mtab.active::after{display:none!important;content:none!important}
 }
 </style>
 </head>
