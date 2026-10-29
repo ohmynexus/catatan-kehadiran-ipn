@@ -848,7 +848,15 @@ setTheme(document.documentElement.getAttribute('data-theme')||'onyx');
 $('#rcMonth').value=todayStr().slice(0,7);
 $('#fDate').value=todayStr();
 fillSettings();prefillNew(false);renderAll();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js');
+/* Auto-check app updates while visible. Page data is stored locally before refresh. */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'}).then(reg=>{
+    const check=()=>{if(document.visibilityState==='visible')reg.update().catch(()=>{});};
+    check();
+    setInterval(check,30000);
+    document.addEventListener('visibilitychange',check);
+  }).catch(()=>{});
+}
 </script>
 </body>
 </html>
